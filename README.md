@@ -1,4 +1,4 @@
-# DEPRECATED V1
+#jDEPRECATED V1
 
 Hi! If you're reading this it means you've stuck around using my config for a while. It's been a great honor to maintain this with you. Thank you!
 

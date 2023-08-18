@@ -1,4 +1,5 @@
-local lsp_installer = require("nvim-lsp-installer")
+-- local lsp_installer = require("nvim-lsp-installer")
+local mason = require('mason')
 local lspconfig = require('lspconfig')
 local configs = require('lspconfig/configs')
 local lsp_status = require('lsp-status')
@@ -10,9 +11,11 @@ lsp_format.setup()
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lsp_installer.setup {
-  automatic_installation = true,
-}
+-- lsp_installer.setup {
+--   automatic_installation = true,
+-- }
+mason.setup()
+require("mason-lspconfig").setup()
 
 trouble.setup {
   use_diagnostic_signs = true,
@@ -48,23 +51,23 @@ lspconfig.util.default_config = vim.tbl_extend(
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-  underline = true,
-  virtual_text = {
-    spacing = 4,
-    format = function(diagnostic)
-      -- Only show the first line with virtualtext.
-      return string.gsub(diagnostic.message, '\n.*', '')
-    end,
-  },
-  signs = true,
-  update_in_insert = false,
-}
+    underline = true,
+    virtual_text = {
+      spacing = 4,
+      format = function(diagnostic)
+        -- Only show the first line with virtualtext.
+        return string.gsub(diagnostic.message, '\n.*', '')
+      end,
+    },
+    signs = true,
+    update_in_insert = false,
+  }
 )
 
 lspkind.init()
 
 -- Lua
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
   capabilities = capabilities,
   settings = {
     Lua = {
@@ -109,17 +112,23 @@ lspconfig.rust_analyzer.setup({
   }
 })
 
+lspconfig.elixirls.setup({
+  cmd = { "elixir-ls" },
+  on_attach = on_attach,
+  capabilities = capabilities
+})
+
 -- Emmet
 if not lspconfig.emmet_ls then
   configs.emmet_ls = {
     default_config = {
-      cmd = { 'emmet-ls', '--stdio' };
-      filetypes = { 'html', 'css', 'blade', 'javascriptreact', 'javascript.jsx' };
+      cmd = { 'emmet-ls', '--stdio' },
+      filetypes = { 'html', 'css', 'blade', 'javascriptreact', 'javascript.jsx' },
       root_dir = function()
         return vim.loop.cwd()
-      end;
-      settings = {};
-    };
+      end,
+      settings = {},
+    },
   }
 end
 lspconfig.emmet_ls.setup({
@@ -169,9 +178,9 @@ lspconfig.gopls.setup {
 
 -- Terraform
 require 'lspconfig'.terraformls.setup {
-  filetypes = { 'terraform', 'tf' };
+  filetypes = { 'terraform', 'tf' },
 }
-
+--
 -- Docker
 require 'lspconfig'.dockerls.setup {}
 
@@ -193,5 +202,7 @@ vim.api.nvim_exec([[
   autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
   autocmd BufWritePre *.tfvars lua vim.lsp.buf.format { async = true }
   autocmd BufWritePre *.tf lua vim.lsp.buf.format { async = true }
+  autocmd BufWritePre *.ex lua vim.lsp.buf.format { async = true }
+  autocmd BufWritePre *.exs lua vim.lsp.buf.format { async = true }
   autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
 ]], false)

@@ -65,7 +65,7 @@ function _G.config_update()
 			return
 		end
 
-		local did_update = await(async_command("git checkout v1"))
+		local did_update = 0 -- await(async_command("git checkout v1"))
 		if did_update == -1 then
 			printerr("Failed updating config", "Try doing a git pull in the repository directly.")
 			return
@@ -78,10 +78,10 @@ function _G.config_update()
 	end)()
 end
 
-memo.status = " DEPRECATED"
-warn(
-	"DEPRECATED",
-	"You're using the v1 branch of this config. Consider migrating to the `main` branch or forking.\nRun `:help luan-deprecated` for more info"
-)
+-- memo.status = " DEPRECATED"
+-- warn(
+-- 	"DEPRECATED",
+-- 	"You're using the v1 branch of this config. Consider migrating to the `main` branch or forking.\nRun `:help luan-deprecated` for more info"
+-- )
 
 return M

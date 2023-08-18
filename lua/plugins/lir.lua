@@ -17,25 +17,29 @@ require('lir').setup {
     ['q']     = actions.quit,
     ['<Esc>'] = actions.quit,
 
-    ['K'] = actions.mkdir,
-    ['N'] = actions.newfile,
-    ['R'] = actions.rename,
-    ['@'] = actions.cd,
-    ['Y'] = actions.yank_path,
-    ['.'] = actions.toggle_show_hidden,
-    ['D'] = actions.delete,
+    ['K']     = actions.mkdir,
+    ['N']     = actions.newfile,
+    ['R']     = actions.rename,
+    ['@']     = actions.cd,
+    ['Y']     = actions.yank_path,
+    ['.']     = actions.toggle_show_hidden,
+    ['D']     = actions.delete,
 
-    ['J'] = function()
+    ['J']     = function()
       mark_actions.toggle_mark()
       vim.cmd('normal! j')
     end,
-    ['C'] = clipboard_actions.copy,
-    ['X'] = clipboard_actions.cut,
-    ['P'] = clipboard_actions.paste,
+    ['C']     = clipboard_actions.copy,
+    ['X']     = clipboard_actions.cut,
+    ['P']     = clipboard_actions.paste,
   },
-  float = {
-    winblend = 15,
-  },
+  -- float = {
+  --   winblend = 15,
+  --   curdir_window = {
+  --     enable = true,
+  --     highlight_dirname = true
+  --   }
+  -- },
   hide_cursor = true,
 }
 

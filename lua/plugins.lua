@@ -81,10 +81,11 @@ packer.startup {
 
         use {
             'lukas-reineke/lsp-format.nvim',
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
             'neovim/nvim-lspconfig',
             'folke/lsp-colors.nvim',
             'tami5/lspsaga.nvim',
-            'williamboman/nvim-lsp-installer',
             'folke/trouble.nvim',
             'onsails/lspkind-nvim',
             'ray-x/lsp_signature.nvim',
@@ -278,11 +279,12 @@ packer.startup {
         use 'tpope/vim-unimpaired'
 
         -- languages
-        use {
-            'numirias/semshi',
-            run = ':UpdateRemotePlugins',
-            -- ft = 'python' -- doesn't work
-        }
+        -- use {
+        --     'numirias/semshi',
+        --     run = ':UpdateRemotePlugins',
+        --     -- ft = 'python' -- doesn't work
+        -- }
+
         use {
             'tpope/vim-markdown',
             ft = 'markdown',
